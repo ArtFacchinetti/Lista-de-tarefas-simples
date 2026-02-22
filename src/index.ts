@@ -9,7 +9,6 @@ app.use(express.json())
 
 app.use("/tasks", tasksRouter)
 
-
 app.get("/", (req, res) => {
     res.send("Servidor rodando!")
 })

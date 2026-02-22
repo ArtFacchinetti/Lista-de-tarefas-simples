@@ -47,3 +47,16 @@ export const updateTask = async (req: Request, res: Response) => {
         return res.status(500).send(err)
     }
 }
+
+export const deleteTask = async (req: Request, res: Response) => {
+    try {
+        const {id} = req.params;
+        const task = await prisma.task.delete({
+            where: {id:Number(id)}
+        })
+        return res.status(204).json(task)
+    } catch (err) {
+        console.log(err)
+        return res.status(500).send(err)
+    }
+}
