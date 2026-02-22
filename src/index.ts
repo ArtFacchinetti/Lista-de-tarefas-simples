@@ -7,11 +7,13 @@ const app = express()
 
 app.use(express.json())
 
+app.use("/tasks", tasksRouter)
+
+
 app.get("/", (req, res) => {
     res.send("Servidor rodando!")
 })
 
-app.use("/tasks", tasksRouter)
 
 app.listen(3000, (err) => {
     console.log("Servidor rodandooo!")
