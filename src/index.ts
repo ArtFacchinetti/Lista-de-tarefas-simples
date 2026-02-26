@@ -6,18 +6,17 @@ import path from "path"
 dotenv.config()
 const app = express()
 
-app.use(express.urlencoded({ extended: true }));
-
-
-app.use(express.json())
-
 app.use(express.static(path.join(__dirname, "views")))
 
-app.use("/tasks", tasksRouter)
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.json())
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "views", "index.html"))
 })
+
+app.use("/tasks", tasksRouter)
 
 
 app.listen(3000, (err) => {
