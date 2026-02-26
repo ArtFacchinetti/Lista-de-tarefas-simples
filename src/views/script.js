@@ -24,6 +24,8 @@ async function fetchData(url) {
 
 async function loadTasks () {
     const tasks = await fetchData(APIurl)
+
+    taskList.innerHTML = '';
     
     tasks.forEach(task => {
         const taskCard = document.createElement("article");
@@ -49,7 +51,7 @@ async function loadTasks () {
                     <button class="btn-delete" title="Deletar"  onclick="handleDeleteTask(${task.id})">🗑️</button>`
                         : 
                      `<button class="btn-uncheck" title="Refazer">❌</button>
-                     <button class="btn-delete" title="Deletar">🗑️</button>`
+                     <button class="btn-delete" title="Deletar" onclick="handleDeleteTask(${task.id})>🗑️</button>`
                     }
                 </div>
         `
@@ -68,7 +70,7 @@ async function handleDeleteTask(id) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    
+    loadTasks()
 
   } catch (error) {
     console.error('Fetch operation failed:', error.message);
