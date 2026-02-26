@@ -1,7 +1,6 @@
 const APIurl = "/tasks"
 const taskList = document.getElementById("lista-tarefas");
 
-function handleCheckTask(id) {};
 function handleEditTask(id) {};
 
 async function fetchData(url) {
@@ -46,12 +45,12 @@ async function loadTasks () {
                 <div class="acoes">
                     ${
                         task.done != true ? `
-                    <button class="btn-check" title="Concluir" onclick="handleCheckTask(${task.id})">✔️</button>
+                    <button class="btn-check" title="Concluir" onclick="handleCheckTask(${task.id},true)">✔️</button>
                     <button class="btn-edit" title="Editar"  onclick="handleEditTask(${task.id})">🪶</button>
                     <button class="btn-delete" title="Deletar"  onclick="handleDeleteTask(${task.id})">🗑️</button>`
                         : 
-                     `<button class="btn-uncheck" title="Refazer">❌</button>
-                     <button class="btn-delete" title="Deletar" onclick="handleDeleteTask(${task.id})>🗑️</button>`
+                     `<button class="btn-uncheck" title="Refazer" onclick="handleCheckTask(${task.id},false)">❌</button>
+                     <button class="btn-delete" title="Deletar" onclick="handleDeleteTask(${task.id})">🗑️</button>`
                     }
                 </div>
         `
@@ -76,5 +75,24 @@ async function handleDeleteTask(id) {
     console.error('Fetch operation failed:', error.message);
   }
 };
+
+async function handleCheckTask(id, check) {
+    try {
+    const response = await fetch(check ? `${APIurl}/check/${id}` : `${APIurl}/uncheck/${id}`, {
+        method: "PUT"
+    });
+
+    if (!response.ok) {
+      // Throwing an error here moves the execution to the catch block
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    loadTasks()
+
+  } catch (error) {
+    console.error('Fetch operation failed:', error.message);
+  }
+};
+
 
 loadTasks()
