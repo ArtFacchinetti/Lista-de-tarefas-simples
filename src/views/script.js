@@ -3,8 +3,6 @@ const taskList = document.getElementById("lista-tarefas");
 
 function handleCheckTask(id) {};
 function handleEditTask(id) {};
-function handleDeleteTask(id) {};
-
 
 async function fetchData(url) {
   try {
@@ -58,5 +56,23 @@ async function loadTasks () {
         taskList.appendChild(taskCard)
     });
 }
+
+async function handleDeleteTask(id) {
+        try {
+    const response = await fetch(`${APIurl}/${id}`, {
+        method: "DELETE"
+    });
+
+    if (!response.ok) {
+      // Throwing an error here moves the execution to the catch block
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    
+
+  } catch (error) {
+    console.error('Fetch operation failed:', error.message);
+  }
+};
 
 loadTasks()
