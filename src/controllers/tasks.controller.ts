@@ -14,6 +14,40 @@ export const getTasks = async (req: Request, res: Response) => {
     }
 }
 
+export const checkTask = async (req:Request, res:Response) => {
+    try {
+        const { id } = req.params;
+        const done = true
+
+        const check = await prisma.task.update({
+            where:{id:Number(id)},
+            data:{done}
+        })
+
+        return res.status(200).json(check)
+    } catch (err) {
+        console.log(err)
+        res.status(500).send("Erro no servidor!")
+    }
+}
+
+export const unCheckTask = async (req:Request, res:Response) => {
+    try {
+        const { id } = req.params;
+        const done = false
+
+        const check = await prisma.task.update({
+            where:{id:Number(id)},
+            data:{done}
+        })
+
+        return res.status(200).json(check)
+    } catch (err) {
+        console.log(err)
+        res.status(500).send("Erro no servidor!")
+    }
+}
+
 export const createTask = async (req: Request, res: Response) => {
     try {
         const { title, description } = req.body;
