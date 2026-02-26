@@ -1,16 +1,22 @@
 import express from "express";
 import dotenv from "dotenv";
 import { tasksRouter } from "./routes/tasks.routes";
+import path from "path"
 
 dotenv.config()
 const app = express()
 
+app.use(express.urlencoded({ extended: true }));
+
+
 app.use(express.json())
+
+app.use(express.static(path.join(__dirname, "views")))
 
 app.use("/tasks", tasksRouter)
 
 app.get("/", (req, res) => {
-    res.send("Servidor rodando!")
+    res.sendFile(path.join(__dirname, "views", "index.html"))
 })
 
 
