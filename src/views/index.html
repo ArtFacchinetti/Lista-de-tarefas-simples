@@ -28,6 +28,27 @@
         </section>
     </main>
 
+    <div id="modal-container" class="modal-overlay">
+    <div class="modal-content">
+        <h2>Nova Tarefa</h2>
+        <div id="form-tarefa">
+            <div class="campo">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" placeholder="Ex: Estudar Node.js" required>
+            </div>
+            
+            <div class="campo">
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" name="descricao" rows="3" placeholder="O que precisa ser feito?"></textarea>
+            </div>
+
+            <div class="modal-acoes">
+                <button type="button" id="btn-cancelar" class="btn-secundario">Cancelar</button>
+                <button class="btn-primary" id="btn-finalizar-criacao" onclick="handleCreateTask()">Criar Tarefa</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
     <script src="script.js"></script>

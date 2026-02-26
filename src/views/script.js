@@ -94,5 +94,62 @@ async function handleCheckTask(id, check) {
   }
 };
 
+async function handleCreateTask () {
+  try {
+  const body = {
+    title: document.getElementById("titulo").value,
+    description: document.getElementById("descricao").value
+  }
+
+  console.log(JSON.stringify(body))
+
+
+    const response = await fetch(APIurl, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json" // Essencial para o servidor ler seu JSON
+    },
+        body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      // Throwing an error here moves the execution to the catch block
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    modal.style.display = 'none';
+    loadTasks()
+
+  } catch (error) {
+    console.log(error)
+    console.error('Fetch operation failed:', error.message);
+  }
+}
+
+
+///////////
+// Modal //
+///////////
+
+const modal = document.getElementById('modal-container');
+const btnNovaTarefa = document.getElementById('btn-nova-tarefa');
+const btnCancelar = document.getElementById('btn-cancelar');
+
+// Abrir modal
+btnNovaTarefa.onclick = () => {
+    modal.style.display = 'flex';
+};
+
+// Fechar modal
+btnCancelar.onclick = () => {
+    modal.style.display = 'none';
+};
+
+// Fechar se clicar fora da caixa branca
+window.onclick = (event) => {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+};
 
 loadTasks()
